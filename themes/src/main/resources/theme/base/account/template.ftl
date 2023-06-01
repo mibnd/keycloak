@@ -41,7 +41,7 @@
                                 <div class="kc-dropdown" id="kc-locale-dropdown">
                                     <a href="#" id="kc-current-locale-link">${locale.current}</a>
                                     <ul>
-                                        <#list locale.supported as l>
+                                        <#list locale.supported?sort_by("label") as l>
                                             <li class="kc-dropdown-item"><a href="${l.url}">${l.label}</a></li>
                                         </#list>
                                     </ul>

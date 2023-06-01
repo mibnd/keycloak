@@ -50,7 +50,7 @@
                         <div id="kc-locale-dropdown" class="${properties.kcLocaleDropDownClass!}">
                             <a href="#" id="kc-current-locale-link">${locale.current}</a>
                             <ul class="${properties.kcLocaleListClass!}">
-                                <#list locale.supported as l>
+                                <#list locale.supported?sort_by("label") as l>
                                     <li class="${properties.kcLocaleListItemClass!}">
                                         <a class="${properties.kcLocaleItemClass!}" href="${l.url}">${l.label}</a>
                                     </li>
