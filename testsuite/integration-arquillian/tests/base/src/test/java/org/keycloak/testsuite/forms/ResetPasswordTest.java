@@ -1217,6 +1217,35 @@ public class ResetPasswordTest extends AbstractTestRealmKeycloakTest {
 
     }
 
+    @Test
+    public void resetPasswordInfoMessageWithRegistrationEmailAsUsername() throws IOException {
+        RealmRepresentation realmRep = testRealm().toRepresentation();
+        Boolean originalRegistrationEmailAsUsername = realmRep.isRegistrationEmailAsUsername();
+
+        try {
+            loginPage.open();
+            loginPage.resetPassword();
+
+            resetPasswordPage.assertCurrent();
+
+            assertEquals("Enter your username or email address and we will send you instructions on how to create a new password.", resetPasswordPage.getInfoMessage());
+
+            realmRep.setRegistrationEmailAsUsername(true);
+            testRealm().update(realmRep);
+
+            loginPage.open();
+            loginPage.resetPassword();
+
+            resetPasswordPage.assertCurrent();
+
+            assertEquals("Enter your email address and we will send you instructions on how to create a new password.", resetPasswordPage.getInfoMessage());
+        } finally {
+            realmRep.setRegistrationEmailAsUsername(originalRegistrationEmailAsUsername);
+            testRealm().update(realmRep);
+        }
+
+    }
+
     // KEYCLOAK-15170
     @Test
     public void changeEmailAddressAfterSendingEmail() throws IOException {

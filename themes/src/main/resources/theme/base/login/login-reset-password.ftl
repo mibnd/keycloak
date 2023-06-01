@@ -32,6 +32,8 @@
     <#elseif section = "info" >
         <#if realm.duplicateEmailsAllowed>
             ${msg("emailInstructionUsername")}
+        <#elseif realm.registrationEmailAsUsername>
+            ${msg("emailInstructionEmail")}
         <#else>
             ${msg("emailInstruction")}
         </#if>
